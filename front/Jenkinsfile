@@ -2,7 +2,6 @@ pipeline {
     agent any
     
     environment {
-        // Définir les variables d'environnement si nécessaire
         GIT_REPO = 'https://github.com/KAMELALOUI/patrimoine-kamel.git'
         BRANCH_NAME = 'main'
     }
@@ -10,39 +9,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Cloner le dépôt
                 git branch: "${BRANCH_NAME}", url: "${GIT_REPO}"
             }
         }
         
         stage('Build') {
             steps {
-                // Commandes pour le build (ex. compilation)
                 echo 'Building...'
-                // Exemple : pour un projet Maven
-                // sh 'mvn clean install'
-                // Exemple : pour un projet Node.js
-                // sh 'npm install'
+                // Place your build commands here, for example:
+                // sh 'mvn clean install' for Maven projects
+                // sh 'npm install' for Node.js projects
             }
         }
         
         stage('Test') {
             steps {
-                // Commandes pour les tests
                 echo 'Testing...'
-                // Exemple : pour un projet Maven
-                // sh 'mvn test'
-                // Exemple : pour un projet Node.js
-                // sh 'npm test'
+                // Place your test commands here, for example:
+                // sh 'mvn test' for Maven projects
+                // sh 'npm test' for Node.js projects
             }
         }
         
         stage('Deploy') {
             steps {
-                // Commandes pour le déploiement
                 echo 'Deploying...'
-                // Exemple : pour un déploiement Docker
-                // sh 'docker build -t your-image-name .'
+                // Place your deployment commands here
+                // sh 'docker build -t your-image-name .' for Docker projects
                 // sh 'docker run -d your-image-name'
             }
         }
@@ -50,15 +43,12 @@ pipeline {
     
     post {
         always {
-            // Actions à effectuer après chaque build, qu'il réussisse ou échoue
             echo 'This will always run'
         }
         success {
-            // Actions à effectuer seulement si le build réussit
             echo 'This will run only if successful'
         }
         failure {
-            // Actions à effectuer seulement si le build échoue
             echo 'This will run only if failed'
         }
     }
