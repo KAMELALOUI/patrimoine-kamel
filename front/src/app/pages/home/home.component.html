@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<!-- Hero Section -->
+<section id="hero" class="hero section">
+  <img src="assets/img/hero-bg.jpg" alt="">
+  <div class="container">
+    <h2>Préservation et de Promotion du Patrimoine Culturel<br></h2>
+    <p>Ce projet vise à développer une plateforme complète pour la préservation du patrimoine culturel et la gestion des événements culturels en utilisant des technologies modernes telles que Angular, Spring Boot 3 et une architecture de microservices déployée sur Kubernetes, avec un pipeline Jenkins pour l'automatisation du déploiement et des tests.</p>
+    <div class="d-flex mt-4">
+      <a href="/auth" class="btn-get-started">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses" class="courses section">
+  <!-- Section Title -->
+  <div class="container section-title">
+    <h2>LIST</h2>
+    <p class="">List Of All Services</p>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8">
+        <!-- Publish Article Card -->
+        <!-- Articles List -->
+        <h2>LIST ARTICLES</h2>
+
+        <div *ngFor="let article of articles" class="col-12 d-flex align-items-stretch mt-4 mt-md-0 mb-5 course-item">
+          <img [src]="article.imageURL || 'assets/img/default-img.jpg'" class="img-fluid" alt="...">
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="category">{{ article.createdAt | date:'medium' }}</p>
+            </div>
+            <h3><a href="#">{{ article.title }}</a></h3>
+            <p class="description">{{ article.content }}</p>
+          </div>
+        </div>
+        <!-- Media List -->
+        <h2>LIST Media</h2>
+
+        <div *ngFor="let item of media" class="col-12 d-flex align-items-stretch mt-4 mt-md-0 mb-5 course-item">
+          <img [src]="item.imageURL || 'assets/img/default-img.jpg'" class="img-fluid" alt="...">
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="category">{{ item.createdAt | date:'medium' }}</p>
+            </div>
+            <h3><a href="#">{{ item.title }}</a></h3>
+            <p class="description">{{ item.description }}</p>
+          </div>
+        </div>
+        <!-- Heritage Sites List -->
+        <h2>LIST Heritage</h2>
+
+        <div *ngFor="let site of heritageSites" class="col-12 d-flex align-items-stretch mt-4 mt-md-0 mb-5 course-item">
+          <img [src]="site.imageURL || 'assets/img/default-img.jpg'" class="img-fluid" alt="...">
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="category">{{ site.localisation }}</p>
+            </div>
+            <h3><a href="#">{{ site.nom }}</a></h3>
+            <p class="description">{{ site.descriptionHistorique }}</p>
+          </div>
+        </div>
+        <h2>LIST Mappings</h2>
+
+        <!-- Mappings List -->
+        <div *ngFor="let mapping of mappings" class="col-12 d-flex align-items-stretch mt-4 mt-md-0 mb-5 course-item">
+          <img [src]="mapping.imageURL || 'assets/img/default-img.jpg'" class="img-fluid" alt="...">
+          <div class="course-content">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="category">{{ mapping.location }}</p>
+            </div>
+            <h3><a href="#">{{ mapping.name }}</a></h3>
+            <p class="description">{{ mapping.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

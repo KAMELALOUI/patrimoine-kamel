@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<main class="main container">
+    <div class="row mt-5 justify-content-center mb-5">
+        <div class="col-12 col-sm-8">
+            <div class="container">
+                <h2>Create New Site</h2>
+                <form [formGroup]="form" (ngSubmit)="createSite()">
+                    <div class="form-group">
+                        <label for="nom">Name</label>
+                        <input id="nom" type="text" formControlName="nom" class="form-control">
+                        <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="text-danger">
+                            Name is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="localisation">Location</label>
+                        <input id="localisation" type="text" formControlName="localisation" class="form-control">
+                        <div *ngIf="form.get('localisation')?.invalid && form.get('localisation')?.touched" class="text-danger">
+                            Location is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descriptionHistorique">Historical Description</label>
+                        <textarea id="descriptionHistorique" formControlName="descriptionHistorique" class="form-control"></textarea>
+                        <div *ngIf="form.get('descriptionHistorique')?.invalid && form.get('descriptionHistorique')?.touched" class="text-danger">
+                            Description is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Image</label>
+                        <input id="file" type="file" (change)="onFileChange($event)" class="form-control">
+                        <div *ngIf="fileInvalid" class="text-danger">
+                            Image is required
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid || !selectedFile">Create Site</button>
+                    <div *ngIf="error" class="text-danger">{{ error }}</div>
+                    <div *ngIf="success" class="text-success">{{ success }}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<app-footer></app-footer>
