@@ -1,46 +1,50 @@
 pipeline {
     agent any
-    
+
+    environment {
+        NODE_HOME = tool name: 'NodeJS'
+        PATH = "${env.NODE_HOME}/bin:${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/KAMELALOUI/patrimoine-kamel.git'
+                git url: 'https://github.com/KAMELALOUI/patrimoine-kamel.git', branch: 'main', credentialsId: 'your-github-credentials'
             }
         }
         
         stage('Build') {
             steps {
-                echo 'Building...'
-                // sh 'mvn clean install' // Exemple pour un projet Maven
-                // sh 'npm install' // Exemple pour un projet Node.js
+                dir('front') {
+                    sh 'npm install'
+                    sh 'npm run build -- --prod'
+                }
             }
         }
         
         stage('Test') {
             steps {
-                echo 'Testing...'
-                // sh 'mvn test' // Exemple pour un projet Maven
-                // sh 'npm test' // Exemple pour un projet Node.js
+                dir('front') {
+                    sh 'npm test'
+                }
             }
         }
         
-        stage('Deploy') {
+        stage('Archive Artifacts') {
             steps {
-                echo 'Deploying...'
-                // Commandes de déploiement
+                archiveArtifacts artifacts: 'front/dist/*', fingerprint: true
             }
         }
     }
     
     post {
         always {
-            echo 'Pipeline terminé.'
-        }
-        success {
-            echo 'Pipeline réussi.'
+            junit 'front/test-results.xml'
         }
         failure {
-            echo 'Pipeline échoué.'
+            mail to: 'your-email@example.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }
