@@ -1,55 +1,65 @@
 pipeline {
     agent any
-
+    
     environment {
-        DOCKER_IMAGE = 'front'
-        DOCKER_TAG = 'latest'
-        KUBERNETES_NAMESPACE = 'default'  // Change this to your desired namespace
-        KUBERNETES_DEPLOYMENT = 'front'
+        // Définir les variables d'environnement si nécessaire
+        GIT_REPO = 'https://github.com/KAMELALOUI/patrimoine-kamel.git'
+        BRANCH_NAME = 'main'
     }
-
+    
     stages {
+        stage('Checkout') {
+            steps {
+                // Cloner le dépôt
+                git branch: "${BRANCH_NAME}", url: "${GIT_REPO}"
+            }
+        }
+        
         stage('Build') {
             steps {
-                script {
-                    // Install dependencies and build the Angular project
-                    sh 'npm install'
-                    sh 'npm run build --prod'
-                }
+                // Commandes pour le build (ex. compilation)
+                echo 'Building...'
+                // Exemple : pour un projet Maven
+                // sh 'mvn clean install'
+                // Exemple : pour un projet Node.js
+                // sh 'npm install'
             }
         }
-
-        stage('Build Docker Image') {
+        
+        stage('Test') {
             steps {
-                script {
-                    // Build Docker image
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                }
+                // Commandes pour les tests
+                echo 'Testing...'
+                // Exemple : pour un projet Maven
+                // sh 'mvn test'
+                // Exemple : pour un projet Node.js
+                // sh 'npm test'
             }
         }
-
-        stage('Push Docker Image') {
+        
+        stage('Deploy') {
             steps {
-                script {
-                    // Login to Docker Hub (use credentialsId from Jenkins credentials store)
-                    withDockerRegistry([ credentialsId: 'dockerhub-credentials-id', url: '' ]) {
-                        // Push Docker image to Docker Hub
-                        sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    }
-                }
+                // Commandes pour le déploiement
+                echo 'Deploying...'
+                // Exemple : pour un déploiement Docker
+                // sh 'docker build -t your-image-name .'
+                // sh 'docker run -d your-image-name'
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    // Deploy to Kubernetes
-                    sh """
-                    kubectl set image deployment/${KUBERNETES_DEPLOYMENT} ${KUBERNETES_DEPLOYMENT}=${DOCKER_IMAGE}:${DOCKER_TAG} -n ${KUBERNETES_NAMESPACE}
-                    kubectl rollout status deployment/${KUBERNETES_DEPLOYMENT} -n ${KUBERNETES_NAMESPACE}
-                    """
-                }
-            }
+    }
+    
+    post {
+        always {
+            // Actions à effectuer après chaque build, qu'il réussisse ou échoue
+            echo 'This will always run'
+        }
+        success {
+            // Actions à effectuer seulement si le build réussit
+            echo 'This will run only if successful'
+        }
+        failure {
+            // Actions à effectuer seulement si le build échoue
+            echo 'This will run only if failed'
         }
     }
 }
