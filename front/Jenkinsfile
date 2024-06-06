@@ -1,55 +1,46 @@
 pipeline {
     agent any
     
-    environment {
-        GIT_REPO = 'https://github.com/KAMELALOUI/patrimoine-kamel.git'
-        BRANCH_NAME = 'main'
-    }
-    
     stages {
         stage('Checkout') {
             steps {
-                git branch: "${BRANCH_NAME}", url: "${GIT_REPO}"
+                git branch: 'main', url: 'https://github.com/KAMELALOUI/patrimoine-kamel.git'
             }
         }
         
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Place your build commands here, for example:
-                // sh 'mvn clean install' for Maven projects
-                // sh 'npm install' for Node.js projects
+                // sh 'mvn clean install' // Exemple pour un projet Maven
+                // sh 'npm install' // Exemple pour un projet Node.js
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Testing...'
-                // Place your test commands here, for example:
-                // sh 'mvn test' for Maven projects
-                // sh 'npm test' for Node.js projects
+                // sh 'mvn test' // Exemple pour un projet Maven
+                // sh 'npm test' // Exemple pour un projet Node.js
             }
         }
         
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                // Place your deployment commands here
-                // sh 'docker build -t your-image-name .' for Docker projects
-                // sh 'docker run -d your-image-name'
+                // Commandes de déploiement
             }
         }
     }
     
     post {
         always {
-            echo 'This will always run'
+            echo 'Pipeline terminé.'
         }
         success {
-            echo 'This will run only if successful'
+            echo 'Pipeline réussi.'
         }
         failure {
-            echo 'This will run only if failed'
+            echo 'Pipeline échoué.'
         }
     }
 }
