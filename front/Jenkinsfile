@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Vérifiez votre code source depuis un dépôt Git
-                git url: 'https://votre-repository.git', branch: 'main'
+                git url: 'https://github.com/KAMELALOUI/patrimoine-kamel.git', branch: 'main'
             }
         }
         
