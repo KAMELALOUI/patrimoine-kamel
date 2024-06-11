@@ -16,34 +16,34 @@ pipeline {
             }
         }
 
-        // stage('Test Cases') {
+        stage('Test Cases') {
 
-        //     steps {
-        //         script {
-        //             docker.image('maven:3.9.7').inside('-u root') {
-        //                 sh 'ls'
-        //                 sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
-        //             }
-        //         } 
-        //     }
-        // }
-       //  stage('Build docker image') {
-       //      steps {
-       //           script {
-       //              docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}", 'gatway/')
+            steps {
+                script {
+                    docker.image('maven:3.9.7').inside('-u root') {
+                        sh 'ls'
+                        sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
+                    }
+                } 
+            }
+        }
+        stage('Build docker image') {
+            steps {
+                 script {
+                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}", 'gatway/')
 
-       //           }    
-       //      }
-       //  }
-       // stage('Push Docker Image') {
-       //      steps {
-       //          script {
-       //              docker.withRegistry("${env.DOCKER_REGISTRY}", "${env.DOCKER_CREDENTIAL_ID}") {
-       //                  docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
-       //              }
-       //          }
-       //      }
-       //  }
+                 }    
+            }
+        }
+       stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry("${env.DOCKER_REGISTRY}", "${env.DOCKER_CREDENTIAL_ID}") {
+                        docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
+                    }
+                }
+            }
+        }
         stage('SSH to Server') {
             steps {
                 script {
@@ -60,9 +60,9 @@ pipeline {
             }
         }
     }
-    // post {
-    //     always {
-    //         cleanWs()
-    //     }
-    // }
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
