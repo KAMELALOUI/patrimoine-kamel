@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_CREDENTIAL_ID = 'docker' // Your Jenkins credential ID for DockerHub
-        DOCKER_IMAGE = 'kamelaloui/discovery'
+        DOCKER_IMAGE = 'kamelaloui/gatway'
         DOCKER_TAG = '4.0'
         DOCKER_REGISTRY = 'https://index.docker.io/v1/' // DockerHub registry URL
     }
@@ -27,10 +27,9 @@ pipeline {
         stage('Build docker image') {
             steps {
                  script {
-                    // docker.image('docker:latest').inside('-u root') {
-                    //     sh 'cd gatway && docker build -t kamelaloui/gatway:3.0 .'
-                    // }
-                     docker.build('kamelaloui/discovery:3.0', 'gatway/')
+                    docker.image('docker:latest').inside('-u root') {
+                        sh 'cd gatway && docker build -t kamelaloui/gatway:3.0 .'
+                    }
                  }    
             }
         }
