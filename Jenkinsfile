@@ -53,7 +53,7 @@ pipeline {
                             ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_SERVER} << EOF
                             cd /home/ubuntu/project/pfe-kamel-aloui
                             docker-compose up -d 
-                            EOF
+                            
                         """
                     }
                 }
