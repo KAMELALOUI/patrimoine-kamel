@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'kamelaloui/gateway'
         DOCKER_TAG = '4.0'
         DOCKER_REGISTRY = 'https://index.docker.io/v1/' // DockerHub registry URL
-        SSH_CREDENTIAL_ID = 'ssh-server-credentials' // Your Jenkins SSH credential ID
+        SSH_CREDENTIAL_ID = 'ssh' // Your Jenkins SSH credential ID
         SSH_SERVER = '44.196.235.9'               // Your server's address
         SSH_USER = 'root'    
     }
