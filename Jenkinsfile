@@ -27,23 +27,23 @@ pipeline {
         //         } 
         //     }
         // }
-        stage('Build docker image') {
-            steps {
-                 script {
-                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}", 'gatway/')
+       //  stage('Build docker image') {
+       //      steps {
+       //           script {
+       //              docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}", 'gatway/')
 
-                 }    
-            }
-        }
-       stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry("${env.DOCKER_REGISTRY}", "${env.DOCKER_CREDENTIAL_ID}") {
-                        docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
-                    }
-                }
-            }
-        }
+       //           }    
+       //      }
+       //  }
+       // stage('Push Docker Image') {
+       //      steps {
+       //          script {
+       //              docker.withRegistry("${env.DOCKER_REGISTRY}", "${env.DOCKER_CREDENTIAL_ID}") {
+       //                  docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
+       //              }
+       //          }
+       //      }
+       //  }
         stage('SSH to Server') {
             steps {
                 script {
