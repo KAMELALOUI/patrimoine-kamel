@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_CREDENTIAL_ID = '08365039Kamel@@' // Your Jenkins credential ID for DockerHub
+        DOCKER_IMAGE = 'kamelaloui/discovery'
+        DOCKER_TAG = '4.0'
+        DOCKER_REGISTRY = 'https://index.docker.io/v1/' // DockerHub registry URL
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -28,14 +34,11 @@ pipeline {
                  }    
             }
         }
-        stage('Push docker image') {
-            steps {
        stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry("https://index.docker.io/v1/", "08365039Kamel@@
-") {
-                        docker.image("kamelaloui/discovery:3.0}").push()
+                    docker.withRegistry("${env.DOCKER_REGISTRY}", "${env.DOCKER_CREDENTIAL_ID}") {
+                        docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").push()
                     }
                 }
             }
