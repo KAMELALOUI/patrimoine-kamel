@@ -30,8 +30,16 @@ pipeline {
         }
         stage('Push docker image') {
             steps {
-                sh 'sudo su && docker login -u kamelaloui -p 08365039Kamel@@'
-                sh 'push  kamelaloui/discovery:3.0 .'
+       stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry("https://index.docker.io/v1/", "08365039Kamel@@
+") {
+                        docker.image("kamelaloui/discovery:3.0}").push()
+                    }
+                }
+            }
+        } .'
             }
         }
     }
