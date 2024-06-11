@@ -21,9 +21,10 @@ pipeline {
         stage('Build docker image') {
             steps {
                  script {
-                    docker.image('docker:latest').inside('-u root') {
-                        sh 'cd gatway && docker build -t kamelaloui/discovery:3.0 .'
-                    }
+                    // docker.image('docker:latest').inside('-u root') {
+                    //     sh 'cd gatway && docker build -t kamelaloui/gatway:3.0 .'
+                    // }
+                     docker.build('kamelaloui/discovery:3.0', 'gatway/')
                  }    
             }
         }
