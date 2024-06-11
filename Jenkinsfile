@@ -44,7 +44,7 @@ pipeline {
                 }
             }
         }
-        stage('SSH to Server') {
+        stage('Deploy to Server') {
             steps {
                 script {
                     // Use SSH Agent to provide credentials
