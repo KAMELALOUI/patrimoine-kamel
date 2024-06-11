@@ -5,6 +5,9 @@ pipeline {
         DOCKER_IMAGE = 'kamelaloui/gateway'
         DOCKER_TAG = '4.0'
         DOCKER_REGISTRY = 'https://index.docker.io/v1/' // DockerHub registry URL
+        SSH_CREDENTIAL_ID = 'ssh-server-credentials' // Your Jenkins SSH credential ID
+        SSH_SERVER = '44.196.235.9'               // Your server's address
+        SSH_USER = 'root'    
     }
     stages {
         stage('Checkout') {
@@ -40,6 +43,21 @@ pipeline {
                     }
                 }
             }
+        }
+        stage('SSH to Server') {
+            steps {
+                script {
+                    // Use SSH Agent to provide credentials
+                    sshagent(credentials: [env.SSH_CREDENTIAL_ID]) {
+                        sh "ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_SERVER} 'cd project/project && docker-compose up -d '"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
