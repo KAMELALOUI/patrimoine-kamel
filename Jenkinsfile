@@ -8,13 +8,16 @@ pipeline {
         }
 
         stage('Test Cases') {
+            docker {
+                image 'maven:3-alpine'
+                args '-u root'
+            }
             steps {
                 script {
-                    docker.image('maven:3.9.7').inside {
+                    // docker.image('maven:3.9.7').inside {
                         sh 'ls'
                         sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
-                    }
-                }   
+                } 
             }
         }
         stage('Build docker image') {
