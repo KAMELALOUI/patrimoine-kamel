@@ -12,7 +12,7 @@ pipeline {
                 script {
                     docker.image('maven:3.9.7').inside {
                         sh 'ls'
-                        sh 'cd gatway && mvn clean compile -Dmaven.test.skip -Dmaven.repo.local=/var/lib/jenkins/.m2/repository'
+                        sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
                     }
                 }   
             }
