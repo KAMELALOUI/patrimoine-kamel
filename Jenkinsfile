@@ -49,8 +49,12 @@ pipeline {
                 script {
                     // Use SSH Agent to provide credentials
                     sshagent(credentials: [env.SSH_CREDENTIAL_ID]) {
-                        sh "ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_SERVER} 'cd project/project && docker-compose up -d '"
-                    }
+                        sh """
+                            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_SERVER} << EOF
+                            cd /home/ubuntu/project/pfe-kamel-aloui
+                            docker-compose up -d 
+                            EOF
+                        """
                 }
             }
         }
