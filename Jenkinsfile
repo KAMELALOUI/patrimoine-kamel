@@ -12,7 +12,7 @@ pipeline {
                 script {
                     docker.image('maven:3.9.7').inside {
                         sh 'ls'
-                        sh 'cd discovery && mvn clean compile -Dmaven.test.skip'
+                        sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
                     }
                 }   
             }
