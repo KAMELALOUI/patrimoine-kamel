@@ -8,11 +8,12 @@ pipeline {
         }
 
         stage('Test Cases') {
-            docker {
-                image 'maven:3-alpine'
-                args '-u root'
-            }
+
             steps {
+                docker {
+                  image 'maven:3-alpine'
+                  args '-u root'
+                }
                 script {
                     // docker.image('maven:3.9.7').inside {
                         sh 'ls'
