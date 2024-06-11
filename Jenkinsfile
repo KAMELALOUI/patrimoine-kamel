@@ -55,6 +55,7 @@ pipeline {
                             docker-compose up -d 
                             EOF
                         """
+                    }
                 }
             }
         }
