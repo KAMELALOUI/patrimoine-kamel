@@ -15,9 +15,10 @@ pipeline {
                   args '-u root'
                 }
                 script {
-                    // docker.image('maven:3.9.7').inside {
+                    docker.image('maven:3.9.7').inside('-u root') {
                         sh 'ls'
                         sh 'cd gatway && mvn clean compile -Dmaven.test.skip'
+                    }
                 } 
             }
         }
