@@ -22,7 +22,7 @@ pipeline {
             steps {
                  script {
                     docker.image('docker:latest').inside {
-                        sh 'sudo su && cd gatway && docker build -t kamelaloui/discovery:3.0 .'
+                        sh 'cd gatway && docker build -t kamelaloui/discovery:3.0 .'
                     }
                  }    
             }
