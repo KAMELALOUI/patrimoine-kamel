@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_CREDENTIAL_ID = 'docker' // Your Jenkins credential ID for DockerHub
-        DOCKER_IMAGE = 'kamelaloui/gatway'
+        DOCKER_IMAGE = 'kamelaloui/gateway'
         DOCKER_TAG = '4.0'
         DOCKER_REGISTRY = 'https://index.docker.io/v1/' // DockerHub registry URL
     }
