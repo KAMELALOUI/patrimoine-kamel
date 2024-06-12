@@ -29,7 +29,7 @@ pipeline {
         //         )
         //     }   
         // }
-        stage('Test Cases') {
+        stage('Build project') {
 
             steps {
                 script {
