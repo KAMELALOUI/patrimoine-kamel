@@ -21,7 +21,7 @@ pipeline {
                 dir("${WORKSPACE}"){
                 // Run SonarQube analysis for Python
                     script {
-                        def scannerHome = tool name: 'scanner-name', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                        def scannerHome = tool name: 'scanner-name1', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                         withSonarQubeEnv('sonar') {
                             sh "echo $pwd"
                             sh "${scannerHome}/bin/sonar-scanner"
