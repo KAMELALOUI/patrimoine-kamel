@@ -48,7 +48,7 @@ pipeline {
                     def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
                     
                     if (isUnix()) {
-                        sh "cd gatway &&${mvnCmd} ${nexusRepo} ${nexusCreds}"
+                        sh "cd gatway &&sudo ${mvnCmd} ${nexusRepo} ${nexusCreds}"
                     } else {
                         bat "${mvnCmd} ${nexusRepo} ${nexusCreds}"
                     }
