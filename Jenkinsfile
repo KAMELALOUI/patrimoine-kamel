@@ -20,13 +20,14 @@ pipeline {
             steps {
                 dir("${WORKSPACE}"){
                 // Run SonarQube analysis for Python
-                script {
-                    def scannerHome = tool name: 'scanner-name', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                    withSonarQubeEnv('sonar') {
-                        sh "echo $pwd"
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    script {
+                        def scannerHome = tool name: 'scanner-name', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                        withSonarQubeEnv('sonar') {
+                            sh "echo $pwd"
+                            sh "${scannerHome}/bin/sonar-scanner"
+                        }
                     }
-                }
+                }    
             }
         }
         stage('Test Cases') {
