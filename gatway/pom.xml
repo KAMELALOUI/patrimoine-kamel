@@ -49,7 +49,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
-
+                
 
 	</dependencies>
 	<dependencyManagement>
@@ -82,5 +82,14 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://<nexus-url>:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http:///44.196.235.9:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
