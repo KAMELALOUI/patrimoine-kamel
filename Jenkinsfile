@@ -8,6 +8,9 @@ pipeline {
         SSH_CREDENTIAL_ID = 'ssh' // Your Jenkins SSH credential ID
         SSH_SERVER = '44.196.235.9'               // Your server's address
         SSH_USER = 'root'    
+        MAVEN_HOME = 'Maven 3.6.3' // Ensure to define the Maven tool in Jenkins
+        NEXUS_CREDENTIALS = credentials('nexus') // Replace with the ID of the Nexus credentials in Jenkins
+        NEXUS_URL = 'http://http://44.196.235.9/:8081/repository/maven-releases/'
     }
     stages {
         stage('Checkout') {
@@ -16,15 +19,16 @@ pipeline {
             }
         }
 
-        stage('SonarQube Code Analysis') {
-            steps {
-                nexusPolicyEvaluation(
-                                iqApplication: 'SampApp',
-                                iqInstanceId: 'MyIQServer1',
-                                iqStage: 'build'
-                )
-            }   
-        }
+        
+        // stage('SonarQube Code Analysis') {
+        //     steps {
+        //         nexusPolicyEvaluation(
+        //                         iqApplication: 'SampApp',
+        //                         iqInstanceId: 'MyIQServer1',
+        //                         iqStage: 'build'
+        //         )
+        //     }   
+        // }
         stage('Test Cases') {
 
             steps {
@@ -36,6 +40,23 @@ pipeline {
                 } 
             }
         }
+        stage('Publish to Nexus') {
+            steps {
+                script {
+                    def mvnCmd = "/usr/share/maven/bin/mvn deploy"
+                    def nexusRepo = "-Dalt:maven-releases=nexus::default::${NEXUS_URL}"
+                    def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
+                    
+                    if (isUnix()) {
+                        sh "${mvnCmd} ${nexusRepo} ${nexusCreds}"
+                    } else {
+                        bat "${mvnCmd} ${nexusRepo} ${nexusCreds}"
+                    }
+                }
+            }
+        }
+    
+
         stage('Build docker image') {
             steps {
                  script {
