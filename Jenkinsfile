@@ -43,12 +43,12 @@ pipeline {
         stage('Publish to Nexus') {
             steps {
                 script {
-                    def mvnCmd = "/usr/share/maven/bin/mvn deploy"
+                    def mvnCmd = "/usr/share/maven/bin/mvn deploy "
                     def nexusRepo = "-Dalt:maven-releases=nexus::default::${NEXUS_URL}"
                     def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
                     
                     if (isUnix()) {
-                        sh "${mvnCmd} ${nexusRepo} ${nexusCreds}"
+                        sh "cd gatway &&${mvnCmd} ${nexusRepo} ${nexusCreds}"
                     } else {
                         bat "${mvnCmd} ${nexusRepo} ${nexusCreds}"
                     }
