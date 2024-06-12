@@ -42,8 +42,8 @@ pipeline {
         }
         stage('Publish to Nexus') {
             steps {
-                script {
-                    def mvnCmd = "/usr/share/maven/bin/mvn deploy "
+                script.inside('-u root') {
+                    def mvnCmd = "mvn deploy "
                     def nexusRepo = "-Dalt:maven-releases=nexus::default::${NEXUS_URL}"
                     def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
                     
