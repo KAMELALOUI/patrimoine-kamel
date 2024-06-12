@@ -10,7 +10,7 @@ pipeline {
         SSH_USER = 'root'    
         MAVEN_HOME = 'Maven 3.6.3' // Ensure to define the Maven tool in Jenkins
         NEXUS_CREDENTIALS = credentials('nexus') // Replace with the ID of the Nexus credentials in Jenkins
-        NEXUS_URL = 'http://http://44.196.235.9/:8081/repository/maven-releases/'
+        NEXUS_URL = '44.196.235.9/:8081/repository/maven-releases/'
     }
     stages {
         stage('Checkout') {
@@ -42,16 +42,8 @@ pipeline {
         }
         stage('Publish to Nexus') {
             steps {
-                script ('-u root') {
-                    def mvnCmd = "mvn deploy "
-                    def nexusRepo = "-Dalt:maven-releases=nexus::default::${NEXUS_URL}"
-                    def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
-                    
-                    if (isUnix()) {
-                        sh "cd gatway &&sudo ${mvnCmd} ${nexusRepo} ${nexusCreds}"
-                    } else {
-                        bat "${mvnCmd} ${nexusRepo} ${nexusCreds}"
-                    }
+                docker.image('maven:3.9.7').inside('-u root') {
+                sh 'cd gatway && mvn deploy -Dalt:maven-releases=nexus::default::${NEXUS_URL}-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}'
                 }
             }
         }
