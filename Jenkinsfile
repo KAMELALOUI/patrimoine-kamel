@@ -23,6 +23,7 @@ pipeline {
                                 iqInstanceId: 'MyIQServer1',
                                 iqStage: 'build'
                 )
+            }   
         }
         stage('Test Cases') {
 
