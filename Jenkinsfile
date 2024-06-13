@@ -40,16 +40,16 @@ pipeline {
                 } 
             }
         }
-        stage('Publish to Nexus') {
-            steps {
-                script {
-                docker.image('maven:3.9.7').inside('-u root') {
-                    def nexusRepo = "-DaltDeploymentRepository=nexus-releases::default::${NEXUS_URL}"
-                    def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
-                    sh 'cd gatway && mvn deploy -DaltDeploymentRepository=nexus::default::http://44.196.235.9:8081/repository/maven-snapshots/ -DnexusUsername=admin -DnexusPassword=nexus -DskipTests -Dmaven.install.skip=true'                 }
-                }
-            }
-        }
+        // stage('Publish to Nexus') {
+        //     steps {
+        //         script {
+        //         docker.image('maven:3.9.7').inside('-u root') {
+        //             def nexusRepo = "-DaltDeploymentRepository=nexus-releases::default::${NEXUS_URL}"
+        //             def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
+        //             sh 'cd gatway && mvn deploy -DaltDeploymentRepository=nexus::default::http://44.196.235.9:8081/repository/maven-snapshots/ -DnexusUsername=admin -DnexusPassword=nexus -DskipTests -Dmaven.install.skip=true'                 }
+        //         }
+        //     }
+        // }
     
 
         stage('Build docker image') {
