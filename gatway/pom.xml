@@ -98,7 +98,7 @@
    </executions>
    <configuration>
       <serverId>nexus</serverId>
-      <nexusUrl>http://http://44.196.235.9:8081/nexus/</nexusUrl>
+      <nexusUrl>http://http://44.196.235.9:8081/maven-snapshots</nexusUrl>
       <skipStaging>true</skipStaging>
    </configuration>
 </plugin>
