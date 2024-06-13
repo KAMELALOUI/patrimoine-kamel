@@ -44,8 +44,9 @@ pipeline {
             steps {
                 script {
                 docker.image('maven:3.9.7').inside('-u root') {
-                    sh 'cd gatway && mvn deploy -DaltDeploymentRepository:nexus-releases=nexus::default::${NEXUS_URL} -DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}'
-                }
+                    def nexusRepo = "-DaltDeploymentRepository=nexus-releases::default::${NEXUS_URL}"
+                    def nexusCreds = "-DnexusUsername=${NEXUS_CREDENTIALS_USR} -DnexusPassword=${NEXUS_CREDENTIALS_PSW}"
+                    sh 'mvn deploy ${nexusRepo} ${nexusCreds}'                 }
                 }
             }
         }
