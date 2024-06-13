@@ -12,7 +12,6 @@ pipeline {
         NEXUS_CREDENTIALS = credentials('nexus') // Replace with the ID of the Nexus credentials in Jenkins
         NEXUS_URL = 'http://44.196.235.9:8081/service/rest/repository/browse/maven-central/'
     }
-    -DaltDeploymentRepository=nexus::default::http://44.196.235.9:8081/repository/maven-snapshots/
     stages {
         stage('Checkout') {
             steps {
