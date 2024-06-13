@@ -5,3 +5,19 @@
       <password>nexus</password>
    </server>
 </servers>
+
+<mirrors>
+
+  <mirror>
+
+    <id>nexus</id>
+
+    <name>maven-public</name>
+
+    <url>http://44.196.235.9:8081/repository/maven-public/</url>
+
+    <mirrorOf>*</mirrorOf>
+
+  </mirror>
+
+</mirrors>
