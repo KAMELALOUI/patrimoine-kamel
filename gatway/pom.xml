@@ -113,5 +113,11 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		    <repository>
+		        <id>acme-nexus-releases</id>
+		        <name>anexus</name>
+		        <url>https://44.196.235.9:8081/content/repositories/releases</url>
+		    </repository>
+
 	</repositories>
 </project>
