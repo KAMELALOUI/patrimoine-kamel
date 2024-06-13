@@ -99,7 +99,7 @@
 	 <distributionManagement>
 	  <repository>
 	   <id>mavenn</id>
-	   <url>https://http://44.196.235.9:8081/</url>
+	   <url>http://44.196.235.9:8081/</url>
 	  </repository>
 	 </distributionManagement>
 </project>
