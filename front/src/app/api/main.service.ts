@@ -8,10 +8,10 @@ import { AuthService } from './auth.service'; // Import AuthService
   providedIn: 'root'
 })
 export class MainService {
-  private servicesUrl = 'http://localhost:8084/api/articles';
-  private servicesUrl1 = 'http://localhost:8086/api/media';
-  private servicesUrl2 = 'http://localhost:8085/api/sites';
-  private servicesUrl3 = 'http://localhost:8087/api/heritage';
+  private servicesUrl = 'http://51.20.60.69:8084/api/articles';
+  private servicesUrl1 = 'http://51.20.60.69:8086/api/media';
+  private servicesUrl2 = 'http://51.20.60.69:8085/api/sites';
+  private servicesUrl3 = 'http://51.20.60.69:8087/api/heritage';
 
   constructor(private http: HttpClient, private authService: AuthService) { } // Inject AuthService
 
