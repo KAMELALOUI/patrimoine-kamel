@@ -1,14 +1,23 @@
-# Étape de build Maven
-FROM maven:3.8.6-openjdk-17 AS build
+# Use an official OpenJDK runtime as a parent image
+FROM maven:3.8.5-openjdk-17-slim AS build
+
+# Set the working directory in the container
 WORKDIR /app
+
+# Copy the application's jar file to the container
 COPY pom.xml .
-RUN mvn dependency:go-offline
 COPY src ./src
+
 RUN mvn clean package -DskipTests
 
-# Étape d'exécution
 FROM openjdk:17-jdk-slim
+
 WORKDIR /app
-COPY --from=build /app/target/spring-boot-security-jwt-*.jar app.jar
-EXPOSE 8088
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+COPY --from=build /app/target/articles-services-*.jar ./articles-services.jar
+
+# Make port  available to the world outside this container
+EXPOSE 8084
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "articles-services.jar"]
