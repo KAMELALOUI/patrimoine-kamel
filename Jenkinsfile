@@ -23,6 +23,33 @@ node{
       stage('Docker up'){
         sh 'docker-compose up -d'
     }
+            stage('Tag Docker Images') {
+                withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
+                    sh '''
+                            docker tag pfee_app-discovery:latest kamelaloui/pfee_app-discovery:latest
+                            docker tag pfee_app-articles-service:latest kamelaloui/pfee_app-articles-service:latest
+                            docker tag pfee_app-media-service:latest kamelaloui/pfee_app-media-service:latest
+                            docker tag pfee_app-mapping-service:latest kamelaloui/pfee_app-mapping-service:latest
+                            docker tag pfee_app-articles-service:latest kamelaloui/pfee_app-articles-service:latest
+                            docker tag pfee_app-frontend:latest kamelaloui/pfee_app-frontend:latest
+                            docker tag pfee_app-site-patrimonial:latest kamelaloui/pfee_app-site-patrimonial:latest  
+                     
+                        '''
+                    }
+         stage('Push Docker Images to dockerhub') {
+                withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
+                    sh '''
+                            docker push kamelaloui/pfee_app-discovery:latest
+                            docker push kamelaloui/pfee_app-articles-service:latest
+                            docker push kamelaloui/pfee_app-media-service:latest
+                            docker push kamelaloui/pfee_app-mapping-service:latest
+                            docker push kamelaloui/pfee_app-articles-service:latest
+                            docker push kamelaloui/pfee_app-frontend:latest
+                            docker push kamelaloui/pfee_app-site-patrimonial:latest  
+                     
+                        '''
+                    }
+
   
 
     
