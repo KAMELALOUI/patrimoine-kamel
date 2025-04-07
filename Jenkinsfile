@@ -41,14 +41,14 @@ node{
          stage('Push Docker Images to dockerhub') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
-                            docker tag push kamelaloui/pfee_app-discovery:latest
-                            docker tag push kamelaloui/pfee_app-articles-service:latest
-                            docker tag push kamelaloui/pfee_app-media-service:latest
-                            docker tag push kamelaloui/pfee_app-mapping-service:latest
-                            docker tag push kamelaloui/pfee_app-frontend:latest
-                            docker tag push kamelaloui/pfee_app-auth-service:latest  
-                            docker tag push kamelaloui/pfee_app-site-service:latest  
-                            docker tag push kamelaloui/pfee_app-gateway:lates 
+                            docker push kamelaloui/pfee_app-discovery:latest
+                            docker push kamelaloui/pfee_app-articles-service:latest
+                            docker push kamelaloui/pfee_app-media-service:latest
+                            docker push kamelaloui/pfee_app-mapping-service:latest
+                            docker push kamelaloui/pfee_app-frontend:latest
+                            docker push kamelaloui/pfee_app-auth-service:latest  
+                            docker push kamelaloui/pfee_app-site-service:latest  
+                            docker push kamelaloui/pfee_app-gateway:lates 
                      
                         '''
                     }
