@@ -15,14 +15,9 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
     restart: unless-stopped
 
-  # Auth Service (Nouveau service ajouté)
+  # Auth Service
   auth-service:
     build:
       context: ./auth-service
@@ -32,8 +27,7 @@ services:
     ports:
       - "8088:8088"
     depends_on:
-      discovery:
-        condition: service_healthy
+      - discovery
     networks:
       - app-network
     environment:
@@ -63,9 +57,6 @@ services:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED=true
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_LOWER_CASE_SERVICE_ID=true
-      - SPRING_CLOUD_GATEWAY_ROUTES[0].id=auth-service
-      - SPRING_CLOUD_GATEWAY_ROUTES[0].uri=http://auth-service:8088
-      - SPRING_CLOUD_GATEWAY_ROUTES[0].predicates[0]=Path=/api/auth/**
     restart: unless-stopped
 
   # Articles Service
