@@ -22,4 +22,5 @@ COPY --from=build /app/target/articles-services-*.jar ./articles-services.jar
 EXPOSE 8084
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "articles-services.jar"]
