@@ -48,7 +48,7 @@ node{
                             docker push kamelaloui/pfee_app-frontend:latest
                             docker push kamelaloui/pfee_app-auth-service:latest  
                             docker push kamelaloui/pfee_app-site-service:latest  
-                            docker push kamelaloui/pfee_app-gateway:lates 
+                            docker push kamelaloui/pfee_app-gateway:latest
                      
                         '''
                     }
