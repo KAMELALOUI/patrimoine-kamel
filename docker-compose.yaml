@@ -1,13 +1,11 @@
-version: '3.8'
-
 services:
-  # Discovery Server (Eureka)
-  discovery-server:
+  # Discovery Server (Eureka) - Dossier: ./discovery
+  discovery:
     build:
-      context: ./discovery-server
+      context: ./discovery
       dockerfile: Dockerfile
-    container_name: discovery-server
-    hostname: discovery-server
+    container_name: discovery
+    hostname: discovery
     ports:
       - "8761:8761"
     networks:
@@ -22,23 +20,23 @@ services:
       retries: 3
     restart: unless-stopped
 
-  # API Gateway
-  gateway-service:
+  # API Gateway - Dossier: ./gatway
+  gatway:
     build:
-      context: ./gateway-service
+      context: ./gatway
       dockerfile: Dockerfile
-    container_name: gateway-service
-    hostname: gateway-service
+    container_name: gatway
+    hostname: gatway
     ports:
       - "8222:8222"
     depends_on:
-      discovery-server:
+      discovery:
         condition: service_healthy
     networks:
       - app-network
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED=true
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_LOWER_CASE_SERVICE_ID=true
     healthcheck:
@@ -48,27 +46,27 @@ services:
       retries: 3
     restart: unless-stopped
 
-  # Articles Service
+  # Articles Service - Dossier: ./articles-services
   articles-services:
     build:
       context: ./articles-services
       dockerfile: Dockerfile
-    container_name: articles-service
-    hostname: articles-service
+    container_name: articles-services
+    hostname: articles-services
     ports:
       - "8084:8084"
     depends_on:
-      discovery-server:
+      discovery:
         condition: service_healthy
     networks:
       - app-network
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-server:8761/eureka
-      - SPRING_APPLICATION_NAME=articles-service
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
+      - SPRING_APPLICATION_NAME=articles-services
     restart: unless-stopped
 
-  # Mapping Service
+  # Mapping Service - Dossier: ./mapping-service
   mapping-service:
     build:
       context: ./mapping-service
@@ -78,57 +76,57 @@ services:
     ports:
       - "8087:8087"
     depends_on:
-      discovery-server:
+      discovery:
         condition: service_healthy
     networks:
       - app-network
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
       - SPRING_APPLICATION_NAME=mapping-service
     restart: unless-stopped
 
-  # Media Service
-  media-service:
+  # Media Service - Dossier: ./media
+  media:
     build:
-      context: ./media-service
+      context: ./media
       dockerfile: Dockerfile
-    container_name: media-service
-    hostname: media-service
+    container_name: media
+    hostname: media
     ports:
       - "8086:8086"
     depends_on:
-      discovery-server:
+      discovery:
         condition: service_healthy
     networks:
       - app-network
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-server:8761/eureka
-      - SPRING_APPLICATION_NAME=media-service
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
+      - SPRING_APPLICATION_NAME=media
     restart: unless-stopped
 
-  # Site Patrimonial Service
-  site-patrimonial-service:
+  # Site Patrimonial Service - Dossier: ./site-patrimonial
+  site-patrimonial:
     build:
-      context: ./site-patrimonial-service
+      context: ./site-patrimonial
       dockerfile: Dockerfile
-    container_name: patrimonial-service
-    hostname: patrimonial-service
+    container_name: site-patrimonial
+    hostname: site-patrimonial
     ports:
       - "8085:8085"
     depends_on:
-      discovery-server:
+      discovery:
         condition: service_healthy
     networks:
       - app-network
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-server:8761/eureka
-      - SPRING_APPLICATION_NAME=patrimonial-service
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
+      - SPRING_APPLICATION_NAME=site-patrimonial
     restart: unless-stopped
 
-  # Frontend Application
+  # Frontend Application - Dossier: ./front
   frontend:
     build:
       context: ./front
@@ -143,7 +141,7 @@ services:
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
       - API_BASE_URL=http://51.20.60.69:8222
     depends_on:
-      - gateway-service
+      - gatway
     restart: unless-stopped
 
 networks:
