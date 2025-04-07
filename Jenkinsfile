@@ -11,13 +11,13 @@ node{
         sh 'docker rm -f mapping-service'
         sh 'docker rm -f frontend'
         
-        sh 'docker rm -f patrimoine-kamel-discovery'
-        sh 'docker rmi patrimoine-kamel-articles-services'
-        sh 'docker rmi patrimoine-kamel-site-patrimonial'
-        sh 'docker rmi patrimoine-kamel-mapping-service'
-        sh 'docker rmi patrimoine-kamel-frontend'
-        sh 'docker rmi patrimoine-kamel-media'
-        sh 'docker rmi patrimoine-kamel-gatway'
+        sh 'docker rm -f pfee_app-discovery'
+        sh 'docker rmi -f pfee_app-mapping-service '
+        sh 'docker rmi -f pfee_app-gatway'
+        sh 'docker rmi pfee_app-articles-services'
+        sh 'docker rmi pfee_app-site-patrimonial'
+        sh 'docker rmi pfee_app-media '
+        sh 'docker rmi pfee_app-frontend'
     }
       stage('Docker up'){
         sh 'docker-compose up --build'
