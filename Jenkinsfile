@@ -35,7 +35,7 @@ node{
                             docker tag pfee_app-site-patrimonial:latest kamelaloui/pfee_app-site-patrimonial:latest  
                      
                         '''
-                    }
+                    }}
          stage('Push Docker Images to dockerhub') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
@@ -49,7 +49,7 @@ node{
                      
                         '''
                     }
-
+         }
   
 
     
