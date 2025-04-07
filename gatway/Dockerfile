@@ -1,6 +1,6 @@
 # Use an official OpenJDK runtime as a parent image
 #FROM openjdk:17-jdk-alpine
-FROM maven:3.8.4-jdk-11-slim AS build
+FROM maven:3.8.5-openjdk-17-slim AS build
 
 # Set the working directory inside the container
 WORKDIR /app
