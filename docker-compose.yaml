@@ -15,19 +15,47 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Auth Service (Nouveau service ajouté)
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    hostname: auth-service
+    ports:
+      - "8088:8088"
+    depends_on:
+      discovery:
+        condition: service_healthy
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
+      - SPRING_APPLICATION_NAME=auth-service
+      - SPRING_SECURITY_USER_NAME=admin
+      - SPRING_SECURITY_USER_PASSWORD=admin
     restart: unless-stopped
 
   # API Gateway
-  gatway:
+  gateway:
     build:
       context: ./gatway
       dockerfile: Dockerfile
-    container_name: gatway
-    hostname: gatway
+    container_name: gateway
+    hostname: gateway
     ports:
       - "8222:8222"
     depends_on:
       - discovery
+      - auth-service
     networks:
       - app-network
     environment:
@@ -35,15 +63,18 @@ services:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_ENABLED=true
       - SPRING_CLOUD_GATEWAY_DISCOVERY_LOCATOR_LOWER_CASE_SERVICE_ID=true
+      - SPRING_CLOUD_GATEWAY_ROUTES[0].id=auth-service
+      - SPRING_CLOUD_GATEWAY_ROUTES[0].uri=http://auth-service:8088
+      - SPRING_CLOUD_GATEWAY_ROUTES[0].predicates[0]=Path=/api/auth/**
     restart: unless-stopped
 
   # Articles Service
-  articles-services:
+  articles-service:
     build:
       context: ./articles-services
       dockerfile: Dockerfile
-    container_name: articles-services
-    hostname: articles-services
+    container_name: articles-service
+    hostname: articles-service
     ports:
       - "8084:8084"
     depends_on:
@@ -53,7 +84,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
-      - SPRING_APPLICATION_NAME=articles-services
+      - SPRING_APPLICATION_NAME=articles-service
     restart: unless-stopped
 
   # Mapping Service
@@ -76,12 +107,12 @@ services:
     restart: unless-stopped
 
   # Media Service
-  media:
+  media-service:
     build:
       context: ./media
       dockerfile: Dockerfile
-    container_name: media
-    hostname: media
+    container_name: media-service
+    hostname: media-service
     ports:
       - "8086:8086"
     depends_on:
@@ -91,16 +122,16 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
-      - SPRING_APPLICATION_NAME=media
+      - SPRING_APPLICATION_NAME=media-service
     restart: unless-stopped
 
   # Site Patrimonial Service
-  site-patrimonial:
+  site-service:
     build:
       context: ./site-patrimonial
       dockerfile: Dockerfile
-    container_name: site-patrimonial
-    hostname: site-patrimonial
+    container_name: site-service
+    hostname: site-service
     ports:
       - "8085:8085"
     depends_on:
@@ -110,7 +141,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery:8761/eureka
-      - SPRING_APPLICATION_NAME=site-patrimonial
+      - SPRING_APPLICATION_NAME=site-service
     restart: unless-stopped
 
   # Frontend Application
@@ -128,7 +159,7 @@ services:
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
       - API_BASE_URL=http://51.20.60.69:8222
     depends_on:
-      - gatway
+      - gateway
     restart: unless-stopped
 
 networks:
