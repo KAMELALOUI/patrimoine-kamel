@@ -1,6 +1,6 @@
 # Utiliser une image officielle OpenJDK comme image de base
 #FROM openjdk:17-jdk-slim
-FROM maven:3.8.4-jdk-11-slim AS build
+FROM maven:3.8.5-openjdk-17-slim AS build
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
