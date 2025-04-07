@@ -10,8 +10,9 @@ node{
         sh 'docker rm -f media'
         sh 'docker rm -f mapping-service'
         sh 'docker rm -f frontend'
+        sh 'docker rm -f discovery'
         
-        sh 'docker rm -f pfee_app-discovery'
+        
         sh 'docker rmi -f pfee_app-mapping-service '
         sh 'docker rmi -f pfee_app-gatway'
         sh 'docker rmi pfee_app-articles-services'
@@ -20,7 +21,7 @@ node{
         sh 'docker rmi pfee_app-frontend'
     }
       stage('Docker up'){
-        sh 'docker-compose up --build'
+        sh 'docker-compose up -d'
     }
     stage('restart'){
         sh 'docker restart discovery'
