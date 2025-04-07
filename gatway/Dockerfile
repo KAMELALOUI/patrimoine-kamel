@@ -23,5 +23,11 @@ COPY --from=build /app/target/gateway-*.jar ./gateway.jar
 EXPOSE 8222
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+#ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "gateway.jar"]
+
+
+
+
+
 
