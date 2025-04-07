@@ -31,7 +31,7 @@ import com.ttc.spring.entities.Article;
 import com.ttc.spring.repositories.ArticleRepository;
 import com.ttc.spring.services.CheckAuth;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://51.20.60.69:4200", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/articles")
@@ -111,7 +111,7 @@ public class ArticleController {
                     Files.write(path, bytes);
 
 
-                    article.setImageURL( "http://localhost:8084/uploads/"+ file.getOriginalFilename()  );
+                    article.setImageURL( "http://51.20.60.69:8084/uploads/"+ file.getOriginalFilename()  );
 
                     this.repo.save(article);
 
