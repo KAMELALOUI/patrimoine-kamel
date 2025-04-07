@@ -103,4 +103,6 @@
             <id>nexus</id>
             <url>http://44.196.235.9:8081/repository/maven-releases/</url>
         </repository>
+		    </distributionManagement>
+
 </project>
