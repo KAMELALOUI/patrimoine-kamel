@@ -4,21 +4,21 @@ node{
     git branch: 'main', credentialsId: 'Gitlab', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
     }
     stage('Docker clean'){
-        sh 'docker rm -f gatway'
-        sh 'docker rm -f articles-services'
-        sh 'docker rm -f site-patrimonial'
-        sh 'docker rm -f media'
-        sh 'docker rm -f mapping-service'
-        sh 'docker rm -f frontend'
-        sh 'docker rm -f discovery'
+        sh 'docker rm -f gatway || true'
+        sh 'docker rm -f articles-services || true'
+        sh 'docker rm -f site-patrimonial || true'
+        sh 'docker rm -f media || true'
+        sh 'docker rm -f mapping-service || true'
+        sh 'docker rm -f frontend || true'
+        sh 'docker rm -f discovery || true'
         
         
-        sh 'docker rmi -f pfee_app-mapping-service '
-        sh 'docker rmi -f pfee_app-gatway'
-        sh 'docker rmi pfee_app-articles-services'
-        sh 'docker rmi pfee_app-site-patrimonial'
-        sh 'docker rmi pfee_app-media '
-        sh 'docker rmi pfee_app-frontend'
+        sh 'docker rmi -f pfee_app-mapping-service || true'
+        sh 'docker rmi -f pfee_app-gatway || true'
+        sh 'docker rmi pfee_app-articles-services || true'
+        sh 'docker rmi pfee_app-site-patrimonial || true'
+        sh 'docker rmi pfee_app-media || true'
+        sh 'docker rmi pfee_app-frontend || true'
     }
       stage('Docker up'){
         sh 'docker-compose up -d'
