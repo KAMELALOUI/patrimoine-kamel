@@ -30,9 +30,12 @@ node{
                             docker tag pfee_app-articles-service:latest kamelaloui/pfee_app-articles-service:latest
                             docker tag pfee_app-media-service:latest kamelaloui/pfee_app-media-service:latest
                             docker tag pfee_app-mapping-service:latest kamelaloui/pfee_app-mapping-service:latest
-                            docker tag pfee_app-articles-service:latest kamelaloui/pfee_app-articles-service:latest
                             docker tag pfee_app-frontend:latest kamelaloui/pfee_app-frontend:latest
-                            docker tag pfee_app-site-patrimonial:latest kamelaloui/pfee_app-site-patrimonial:latest  
+                            docker tag pfee_app-auth-service:latest kamelaloui/pfee_app-auth-service:latest  
+                            docker tag pfee_app-site-service:latest kamelalouipfee_app-site-service:latest  
+                            pfee_app-gateway                       latest                  38eb729ec8a3   2 hours ago    408MB
+
+
                      
                         '''
                     }}
