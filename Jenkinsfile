@@ -32,23 +32,23 @@ node{
                             docker tag pfee_app-mapping-service:latest kamelaloui/pfee_app-mapping-service:latest
                             docker tag pfee_app-frontend:latest kamelaloui/pfee_app-frontend:latest
                             docker tag pfee_app-auth-service:latest kamelaloui/pfee_app-auth-service:latest  
-                            docker tag pfee_app-site-service:latest kamelalouipfee_app-site-service:latest  
-                            pfee_app-gateway                       latest                  38eb729ec8a3   2 hours ago    408MB
-
-
+                            docker tag pfee_app-site-service:latest kamelaloui/pfee_app-site-service:latest  
+                            docker tag pfee_app-gateway:latest kamelaloui/pfee_app-gateway:latest  
                      
                         '''
                     }}
+    
          stage('Push Docker Images to dockerhub') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
-                            docker push kamelaloui/pfee_app-discovery:latest
-                            docker push kamelaloui/pfee_app-articles-service:latest
-                            docker push kamelaloui/pfee_app-media-service:latest
-                            docker push kamelaloui/pfee_app-mapping-service:latest
-                            docker push kamelaloui/pfee_app-articles-service:latest
-                            docker push kamelaloui/pfee_app-frontend:latest
-                            docker push kamelaloui/pfee_app-site-patrimonial:latest  
+                            docker tag push kamelaloui/pfee_app-discovery:latest
+                            docker tag push kamelaloui/pfee_app-articles-service:latest
+                            docker tag push kamelaloui/pfee_app-media-service:latest
+                            docker tag push kamelaloui/pfee_app-mapping-service:latest
+                            docker tag push kamelaloui/pfee_app-frontend:latest
+                            docker tag push kamelaloui/pfee_app-auth-service:latest  
+                            docker tag push kamelaloui/pfee_app-site-service:latest  
+                            docker tag push kamelaloui/pfee_app-gateway:lates 
                      
                         '''
                     }
