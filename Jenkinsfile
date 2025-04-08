@@ -57,8 +57,6 @@ node{
                     }
          }
         stage('Push Docker Images to Nexus') {
-            steps {
-                script {
                     withDockerRegistry([credentialsId: "Nexus", url: "http://51.20.60.69:8090/"]) {
                         sh '''
 
@@ -79,13 +77,10 @@ node{
                             docker push 51.20.60.69:8090/pfee_app-auth-service:latest  
                             docker push 51.20.60.69:8090/pfee_app-site-service:latest  
                             docker push 51.20.60.69:8090/pfee_app-gateway:latest
-                            
-
+                           
                         '''
                     }
-                }
             }
-        }
 
 
   
