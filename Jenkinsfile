@@ -23,7 +23,7 @@ node{
       stage('Docker up'){
         sh 'docker-compose up -d'
     }
-            stage('Tag Docker Images') {
+            stage('Tag Docker Images ') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
                             docker tag pfee_app-discovery:latest kamelaloui/pfee_app-discovery:latest
@@ -53,6 +53,38 @@ node{
                         '''
                     }
          }
+        stage('Push Docker Images to Nexus') {
+            steps {
+                script {
+                    withDockerRegistry([credentialsId: "Nexus", url: "http://51.20.60.69:8090/"]) {
+                        sh '''
+
+                            docker tag pfee_app-discovery:latest 51.20.60.69:8090/pfee_app-discovery:latest
+                            docker tag pfee_app-articles-service:latest 51.20.60.69:8090/pfee_app-articles-service:latest
+                            docker tag pfee_app-media-service:latest 51.20.60.69:8090/pfee_app-media-service:latest
+                            docker tag pfee_app-mapping-service:latest 51.20.60.69:8090/pfee_app-mapping-service:latest
+                            docker tag pfee_app-frontend:latest 51.20.60.69:8090/pfee_app-frontend:latest
+                            docker tag pfee_app-auth-service:latest 51.20.60.69:8090/pfee_app-auth-service:latest  
+                            docker tag pfee_app-site-service:latest 51.20.60.69:8090/pfee_app-site-service:latest  
+                            docker tag pfee_app-gateway:latest 51.20.60.69:8090/pfee_app-gateway:latest  
+
+                            docker push 51.20.60.69:8090/pfee_app-discovery:latest
+                            docker push 51.20.60.69:8090/pfee_app-articles-service:latest
+                            docker push 51.20.60.69:8090/pfee_app-media-service:latest
+                            docker push 51.20.60.69:8090/pfee_app-mapping-service:latest
+                            docker push 51.20.60.69:8090/pfee_app-frontend:latest
+                            docker push 51.20.60.69:8090/pfee_app-auth-service:latest  
+                            docker push 51.20.60.69:8090/pfee_app-site-service:latest  
+                            docker push 51.20.60.69:8090/pfee_app-gateway:latest
+                            
+
+                        '''
+                    }
+                }
+            }
+        }
+
+
   
 
     
