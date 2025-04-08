@@ -4,21 +4,24 @@ node{
     git branch: 'main', credentialsId: 'Gitlab', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
     }
     stage('Docker clean'){
-        sh 'docker rm -f gatway || true'
-        sh 'docker rm -f articles-services || true'
-        sh 'docker rm -f site-patrimonial || true'
-        sh 'docker rm -f media || true'
+        sh 'docker rm -f gateway || true'
+        sh 'docker rm -f articles-service || true'
+        sh 'docker rm -f site-service || true'
+        sh 'docker rm -f media-service || true'
         sh 'docker rm -f mapping-service || true'
         sh 'docker rm -f frontend || true'
         sh 'docker rm -f discovery || true'
+        sh 'docker rm -f auth-service || true'
         
         
         sh 'docker rmi -f pfee_app-mapping-service || true'
-        sh 'docker rmi -f pfee_app-gatway || true'
-        sh 'docker rmi pfee_app-articles-services || true'
-        sh 'docker rmi pfee_app-site-patrimonial || true'
-        sh 'docker rmi pfee_app-media || true'
-        sh 'docker rmi pfee_app-frontend || true'
+        sh 'docker rmi -f pfee_app-gateway || true'
+        sh 'docker rmi -f pfee_app-articles-services || true'
+        sh 'docker rmi -f pfee_app-site-patrimonial || true'
+        sh 'docker rmi -f pfee_app-media || true'
+        sh 'docker rmi -f pfee_app-frontend || true'
+        sh 'docker rmi -f pfee_app-auth-service || true'
+        sh 'docker rmi -f pfee_app-discovery || true'
     }
       stage('Docker up'){
         sh 'docker-compose up -d'
