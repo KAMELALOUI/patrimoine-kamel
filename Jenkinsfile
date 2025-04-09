@@ -56,60 +56,32 @@ node{
                         '''
                     }
          }
-        /* stage('Push Docker Images to Nexus') {
-                    withDockerRegistry([credentialsId: "Nexus", url: "http://16.171.111.247:8090/"]) {
+        stage('Push Docker Images to Nexus') {
+                    withDockerRegistry([credentialsId: "Nexus", url: "http://13.51.69.92:8090/"]) {
                         sh '''
 
-                            docker tag pfee_app-discovery:latest 16.171.111.247:8090/pfee_app-discovery:latest
-                            docker tag pfee_app-articles-service:latest 16.171.111.247:8090/pfee_app-articles-service:latest
-                            docker tag pfee_app-media-service:latest 16.171.111.247:8090/pfee_app-media-service:latest
-                            docker tag pfee_app-mapping-service:latest 16.171.111.247:8090/pfee_app-mapping-service:latest
-                            docker tag pfee_app-frontend:latest 16.171.111.247:8090/pfee_app-frontend:latest
-                            docker tag pfee_app-auth-service:latest 16.171.111.247:8090/pfee_app-auth-service:latest  
-                            docker tag pfee_app-site-service:latest 16.171.111.247:8090/pfee_app-site-service:latest  
-                            docker tag pfee_app-gateway:latest 16.171.111.247:8090/pfee_app-gateway:latest  
+                            docker tag pfee_app-discovery:latest 13.51.69.92:8090/pfee_app-discovery:latest
+                            docker tag pfee_app-articles-service:latest 13.51.69.92:8090/pfee_app-articles-service:latest
+                            docker tag pfee_app-media-service:latest 13.51.69.92:8090/pfee_app-media-service:latest
+                            docker tag pfee_app-mapping-service:latest 13.51.69.92:8090/pfee_app-mapping-service:latest
+                            docker tag pfee_app-frontend:latest 13.51.69.92:8090/pfee_app-frontend:latest
+                            docker tag pfee_app-auth-service:latest 13.51.69.92:8090/pfee_app-auth-service:latest  
+                            docker tag pfee_app-site-service:latest 13.51.69.92:8090/pfee_app-site-service:latest  
+                            docker tag pfee_app-gateway:latest 13.51.69.92:8090/pfee_app-gateway:latest  
 
-                            docker push 16.171.111.247:8090/pfee_app-discovery:latest
-                            docker push 16.171.111.247:8090/pfee_app-articles-service:latest
-                            docker push 16.171.111.247:8090/pfee_app-media-service:latest
-                            docker push 16.171.111.247:8090/pfee_app-mapping-service:latest
-                            docker push 16.171.111.247:8090/pfee_app-frontend:latest
-                            docker push 16.171.111.247:8090/pfee_app-auth-service:latest  
-                            docker push 16.171.111.247:8090/pfee_app-site-service:latest  
-                            docker push 16.171.111.247:8090/pfee_app-gateway:latest
+                            docker push 13.51.69.92:8090/pfee_app-discovery:latest
+                            docker push 13.51.69.92:8090/pfee_app-articles-service:latest
+                            docker push 13.51.69.92:8090/pfee_app-media-service:latest
+                            docker push 13.51.69.92:8090/pfee_app-mapping-service:latest
+                            docker push 13.51.69.92:8090/pfee_app-frontend:latest
+                            docker push 13.51.69.92:8090/pfee_app-auth-service:latest  
+                            docker push 13.51.69.92:8090/pfee_app-site-service:latest  
+                            docker push 13.51.69.92:8090/pfee_app-gateway:latest
                            
                         '''
                     }
             }
-*/
-stage('Push Docker Images to Nexus') {
-    environment {
-        NEXUS_CREDS = credentials('Nexus') // Doit contenir admin:password
-    }
-    
-            // Login to Nexus (méthode alternative plus stable)
-            sh '''
-                docker login -u admin -p admin 16.171.111.247:8090
-            '''
-            
-            // Tag and push all images
-            def images = [
-                'pfee_app-discovery',
-                'pfee_app-articles-service',
-                'pfee_app-media-service',
-                'pfee_app-mapping-service',
-                'pfee_app-frontend',
-                'pfee_app-auth-service',
-                'pfee_app-site-service',
-                'pfee_app-gateway'
-            ]
-            
-            images.each { image ->
-                sh """
-                    docker tag ${image}:latest 16.171.111.247:8090/${image}:latest
-                    docker push 16.171.111.247:8090/${image}:latest
-                """
-            }
+
         }
     
 
@@ -118,4 +90,4 @@ stage('Push Docker Images to Nexus') {
 
     
 
-}
+
