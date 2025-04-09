@@ -60,7 +60,7 @@ node{
                     withDockerRegistry([credentialsId: "Nexus", url: "http://16.171.111.247:8090/"]) {
                         sh '''
 
-                            docker tag pfee_app-discovery:latest 16.171.111.247:8090/rep_images_docker/pfee_app-discovery:latest
+                            docker tag pfee_app-discovery:latest 16.171.111.247:8090/pfee_app-discovery:latest
                             docker tag pfee_app-articles-service:latest 16.171.111.247:8090/pfee_app-articles-service:latest
                             docker tag pfee_app-media-service:latest 16.171.111.247:8090/pfee_app-media-service:latest
                             docker tag pfee_app-mapping-service:latest 16.171.111.247:8090/pfee_app-mapping-service:latest
@@ -69,7 +69,7 @@ node{
                             docker tag pfee_app-site-service:latest 16.171.111.247:8090/pfee_app-site-service:latest  
                             docker tag pfee_app-gateway:latest 16.171.111.247:8090/pfee_app-gateway:latest  
 
-                            docker push 16.171.111.247:8090/pfee_app-discovery:latest
+                            docker push 16.171.111.247:8090/rep_images_docker/pfee_app-discovery:latest
                             docker push 16.171.111.247:8090/pfee_app-articles-service:latest
                             docker push 16.171.111.247:8090/pfee_app-media-service:latest
                             docker push 16.171.111.247:8090/pfee_app-mapping-service:latest
