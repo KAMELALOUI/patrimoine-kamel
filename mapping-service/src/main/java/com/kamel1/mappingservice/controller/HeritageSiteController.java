@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-@CrossOrigin(origins = "http://51.20.60.69:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://16.171.111.247:4200", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/heritage")
@@ -88,7 +88,7 @@ public class HeritageSiteController {
                     Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
                     Files.write(path, bytes);
 
-                    heritageSite.setImageURL("http://51.20.60.69:8087/uploads/" + file.getOriginalFilename());
+                    heritageSite.setImageURL("http://16.171.111.247:8087/uploads/" + file.getOriginalFilename());
                     heritageSiteRepository.save(heritageSite);
 
                     return ResponseEntity.status(HttpStatus.OK).body(new JsonResponse(true, "Heritage site published successfully."));

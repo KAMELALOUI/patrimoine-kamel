@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://51.20.60.69:8088/api/auth';
+  private apiUrl = 'http://16.171.111.247:8088/api/auth';
 
   constructor(private http: HttpClient, private router: Router) { }
 
