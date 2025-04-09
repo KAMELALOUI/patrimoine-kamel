@@ -56,7 +56,7 @@ node{
                         '''
                     }
          }
-        stage('Push Docker Images to Nexus') {
+        /* stage('Push Docker Images to Nexus') {
                     withDockerRegistry([credentialsId: "Nexus", url: "http://16.171.111.247:8090/"]) {
                         sh '''
 
@@ -81,6 +81,37 @@ node{
                         '''
                     }
             }
+*/
+stage('Push Docker Images to Nexus') {
+    environment {
+        NEXUS_CREDS = credentials('Nexus') // Doit contenir admin:password
+    }
+    
+            // Login to Nexus (méthode alternative plus stable)
+            sh '''
+                docker login -u admin -p admin 16.171.111.247:8090
+            '''
+            
+            // Tag and push all images
+            def images = [
+                'pfee_app-discovery',
+                'pfee_app-articles-service',
+                'pfee_app-media-service',
+                'pfee_app-mapping-service',
+                'pfee_app-frontend',
+                'pfee_app-auth-service',
+                'pfee_app-site-service',
+                'pfee_app-gateway'
+            ]
+            
+            images.each { image ->
+                sh """
+                    docker tag ${image}:latest 16.171.111.247:8090/${image}:latest
+                    docker push 16.171.111.247:8090/${image}:latest
+                """
+            }
+        }
+    
 
 
   
