@@ -57,26 +57,26 @@ node{
                     }
          }
         stage('Push Docker Images to Nexus') {
-                    withDockerRegistry([credentialsId: "Nexus", url: "http://13.51.69.92:8090/"]) {
+                    withDockerRegistry([credentialsId: "Nexus", url: "http://56.228.19.84:8090/"]) {
                         sh '''
 
-                            docker tag pfee_app-discovery:latest 13.51.69.92:8090/pfee_app-discovery:latest
-                            docker tag pfee_app-articles-service:latest 13.51.69.92:8090/pfee_app-articles-service:latest
-                            docker tag pfee_app-media-service:latest 13.51.69.92:8090/pfee_app-media-service:latest
-                            docker tag pfee_app-mapping-service:latest 13.51.69.92:8090/pfee_app-mapping-service:latest
-                            docker tag pfee_app-frontend:latest 13.51.69.92:8090/pfee_app-frontend:latest
-                            docker tag pfee_app-auth-service:latest 13.51.69.92:8090/pfee_app-auth-service:latest  
-                            docker tag pfee_app-site-service:latest 13.51.69.92:8090/pfee_app-site-service:latest  
-                            docker tag pfee_app-gateway:latest 13.51.69.92:8090/pfee_app-gateway:latest  
+                            docker tag pfee_app-discovery:latest 56.228.19.84:8090/pfee_app-discovery:latest
+                            docker tag pfee_app-articles-service:latest 56.228.19.84:8090/pfee_app-articles-service:latest
+                            docker tag pfee_app-media-service:latest 56.228.19.84:8090/pfee_app-media-service:latest
+                            docker tag pfee_app-mapping-service:latest 56.228.19.84:8090/pfee_app-mapping-service:latest
+                            docker tag pfee_app-frontend:latest 56.228.19.84:8090/pfee_app-frontend:latest
+                            docker tag pfee_app-auth-service:latest 56.228.19.84:8090/pfee_app-auth-service:latest  
+                            docker tag pfee_app-site-service:latest 56.228.19.84:8090/pfee_app-site-service:latest  
+                            docker tag pfee_app-gateway:latest 56.228.19.84:8090/pfee_app-gateway:latest  
 
-                            docker push 13.51.69.92:8090/pfee_app-discovery:latest
-                            docker push 13.51.69.92:8090/pfee_app-articles-service:latest
-                            docker push 13.51.69.92:8090/pfee_app-media-service:latest
-                            docker push 13.51.69.92:8090/pfee_app-mapping-service:latest
-                            docker push 13.51.69.92:8090/pfee_app-frontend:latest
-                            docker push 13.51.69.92:8090/pfee_app-auth-service:latest  
-                            docker push 13.51.69.92:8090/pfee_app-site-service:latest  
-                            docker push 13.51.69.92:8090/pfee_app-gateway:latest
+                            docker push 56.228.19.84:8090/pfee_app-discovery:latest
+                            docker push 56.228.19.84:8090/pfee_app-articles-service:latest
+                            docker push 56.228.19.84:8090/pfee_app-media-service:latest
+                            docker push 56.228.19.84:8090/pfee_app-mapping-service:latest
+                            docker push 56.228.19.84:8090/pfee_app-frontend:latest
+                            docker push 56.228.19.84:8090/pfee_app-auth-service:latest  
+                            docker push 56.228.19.84:8090/pfee_app-site-service:latest  
+                            docker push 56.228.19.84:8090/pfee_app-gateway:latest
                            
                         '''
                     }
