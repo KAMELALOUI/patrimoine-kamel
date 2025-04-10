@@ -148,7 +148,7 @@ services:
       - app-network
     environment:
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
-      - API_BASE_URL=http://16.171.111.247:8222
+      - API_BASE_URL=http://51.21.219.120:8222
     depends_on:
       - gateway
     restart: unless-stopped

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-@CrossOrigin(origins = "http://16.171.111.247:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://51.21.219.120:4200", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/sites")
@@ -94,7 +94,7 @@ public class PatrimonialController {
 
                     Files.write(path, bytes);
 
-                    Patrimonial.setImageURL("http://16.171.111.247:8085/uploads/" + file.getOriginalFilename());
+                    Patrimonial.setImageURL("http://51.21.219.120:8085/uploads/" + file.getOriginalFilename());
                     patrimonialRepository.save(Patrimonial);
 
                     return ResponseEntity.status(HttpStatus.OK).body(new JsonResponse(true, "Patrimonial site published successfully."));

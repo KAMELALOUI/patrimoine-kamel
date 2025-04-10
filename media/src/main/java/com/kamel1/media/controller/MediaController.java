@@ -22,7 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
-@CrossOrigin(origins = "http://16.171.111.247:4200", allowCredentials = "true")
+@CrossOrigin(origins = "http://51.21.219.120:4200", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/media")
@@ -86,7 +86,7 @@ public class MediaController {
                     Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
                     Files.write(path, bytes);
 
-                    media.setImageURL("http://16.171.111.247:8086/uploads/" + file.getOriginalFilename());
+                    media.setImageURL("http://51.21.219.120:8086/uploads/" + file.getOriginalFilename());
                     this.mediaRepository.save(media);
 
                     return ResponseEntity.status(HttpStatus.OK).body(new JsonResponse(true, "media published successfully."));
