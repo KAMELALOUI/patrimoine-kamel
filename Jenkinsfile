@@ -15,14 +15,14 @@ node{
         sh 'docker rmi -f pfee_app-discovery || true'
     }
        stage('Docker Images'){
-        sh 'docker build -t pfee_app-mapping-service -f mapping-service/Dockerfile .'
-        sh 'docker build -t pfee_app-gateway -f gatway/Dockerfile .'
-        sh 'docker build -t pfee_app-articles-services -f articles-services/Dockerfile .'
-        sh 'docker build -t pfee_app-site-patrimonial -f site-patrimonial/Dockerfile .'
-        sh 'docker build -t pfee_app-media -f media/Dockerfile .'
-        sh 'docker build -t pfee_app-frontend -f front/Dockerfile .'
-        sh 'docker build -t pfee_app-auth-service -f auth-service/Dockerfile .'
-        sh 'docker build -t pfee_app-discovery -f discovery/Dockerfile .'
+        sh 'docker build -t pfee_app-mapping-service -f ./mapping-service'
+        sh 'docker build -t pfee_app-gateway -f ./gatway'
+        sh 'docker build -t pfee_app-articles-services -f ./articles-services'
+        sh 'docker build -t pfee_app-site-patrimonial -f ./site-patrimonial'
+        sh 'docker build -t pfee_app-media -f ./media'
+        sh 'docker build -t pfee_app-frontend -f ./front'
+        sh 'docker build -t pfee_app-auth-service -f ./auth-service'
+        sh 'docker build -t pfee_app-discovery -f ./discovery'
     }
             stage('Tag Docker Images ') {
                     sh '''
