@@ -25,7 +25,6 @@ node{
         sh 'docker build -t pfee_app-discovery -f discovery/Dockerfile .'
     }
             stage('Tag Docker Images ') {
-                withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
                             docker tag pfee_app-discovery:latest kamelaloui/pfee_app-discovery:latest
                             docker tag pfee_app-articles-service:latest kamelaloui/pfee_app-articles-service:latest
@@ -37,7 +36,7 @@ node{
                             docker tag pfee_app-gateway:latest kamelaloui/pfee_app-gateway:latest  
                      
                         '''
-                    }}
+                    }
     
          stage('Push Docker Images to dockerhub') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
@@ -56,17 +55,21 @@ node{
          }
         
               stage('k8s clean') {
-                kubectl delete -f discovery/discovery-service.yaml
-                kubectl delete -f auth-service/auth-service.yaml
-                kubectl delete -f site-patrimonial/site-service.yaml
-                kubectl delete -f mapping-service/mapping-service.yaml
-                kubectl delete -f articles-services/articles-service.yaml
-                kubectl delete -f media/media-service.yaml
-                kubectl delete -f gatway/gateway-service.yaml
-                kubectl delete -f front/frontend-service.yaml
+                  sh '''
+                 
+                kubectl delete -f discovery/discovery-service.yaml || true
+                kubectl delete -f auth-service/auth-service.yaml || true
+                kubectl delete -f site-patrimonial/site-service.yaml || true
+                kubectl delete -f mapping-service/mapping-service.yaml || true
+                kubectl delete -f articles-services/articles-service.yaml || true
+                kubectl delete -f media/media-service.yaml || true
+                kubectl delete -f gatway/gateway-service.yaml || true
+                kubectl delete -f front/frontend-service.yaml || true
+                '''
               }
             stage('k8s') {
                 withKubeConfig(credentialsId: 'k8s', serverUrl: 'https://172.31.22.20:6443') {
+                    sh '''
 
 
                 kubectl apply -f discovery/discovery-service.yaml
@@ -77,7 +80,7 @@ node{
                 kubectl apply -f media/media-service.yaml
                 kubectl apply -f gatway/gateway-service.yaml
                 kubectl apply -f front/frontend-service.yaml
-
+'''
                 }
               }
 
