@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: articles-service
+  labels:
+    app: articles
+spec:
+  ports:
+  - port: 8084
+    targetPort: 8084
+  selector:
+    app: articles
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: articles-deployment
+  labels:
+    app: articles
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: articles
+  template:
+    metadata:
+      labels:
+        app: articles
+    spec:
+      containers:
+      - name: articles
+        image: your-registry/articles-service:latest
+        ports:
+        - containerPort: 8084
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+          value: "http://discovery-service:8761/eureka"
