@@ -16,28 +16,28 @@ node{
     }
        stage('Docker Images'){
     dir('mapping-service') {
-        sh 'docker build -t pfee_app-mapping-service -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-mapping-service -f Dockerfile . '
     }
     dir('gateway') {
-        sh 'docker build -t pfee_app-gateway -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-gateway -f Dockerfile . '
     }
     dir('articles-services') {
-        sh 'docker build -t pfee_app-articles-service -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-articles-service -f Dockerfile . '
     }
     dir('site-patrimonial') {
-        sh 'docker build -t pfee_app-site-service -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-site-service -f Dockerfile . '
     }
     dir('media') {
-        sh 'docker build -t pfee_app-media-service -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-media-service -f Dockerfile . '
     }
     dir('front') {
-        sh 'docker build -t pfee_app-frontend -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-frontend -f Dockerfile . '
     }
     dir('auth-service') {
-        sh 'docker build -t pfee_app-auth-service -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-auth-service -f Dockerfile . '
     }
     dir('discovery') {
-        sh 'docker build -t pfee_app-discovery -f Dockerfile . || true'
+        sh 'docker build -t pfee_app-discovery -f Dockerfile . '
     }
 }
     
