@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mapping-service
+  labels:
+    app: mapping
+spec:
+  ports:
+  - port: 8087
+    targetPort: 8087
+  selector:
+    app: mapping
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapping-deployment
+  labels:
+    app: mapping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mapping
+  template:
+    metadata:
+      labels:
+        app: mapping
+    spec:
+      containers:
+      - name: mapping
+        image: kamelaloui/pfee_app-mapping-service:latest
+        ports:
+        - containerPort: 8087
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+          value: "http://discovery-service:8761/eureka"
