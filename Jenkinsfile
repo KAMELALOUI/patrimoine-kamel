@@ -6,7 +6,6 @@ node{
     stage('Docker clean'){
              
         sh 'docker rmi -f pfee_app-mapping-service || true'
-        sh 'docker rmi -f pfee_app-gateway || true'
         sh 'docker rmi -f pfee_app-articles-services || true'
         sh 'docker rmi -f pfee_app-site-patrimonial || true'
         sh 'docker rmi -f pfee_app-media || true'
@@ -18,9 +17,7 @@ node{
     dir('mapping-service') {
         sh 'docker build -t pfee_app-mapping-service -f Dockerfile . '
     }
-    dir('gatway') {
-        sh 'docker build -t pfee_app-gateway -f Dockerfile . '
-    }
+   
     dir('articles-services') {
         sh 'docker build -t pfee_app-articles-service -f Dockerfile . '
     }
@@ -50,7 +47,6 @@ node{
                             docker tag pfee_app-frontend:latest kamelaloui/pfee_app-frontend:latest
                             docker tag pfee_app-auth-service:latest kamelaloui/pfee_app-auth-service:latest  
                             docker tag pfee_app-site-service:latest kamelaloui/pfee_app-site-service:latest  
-                            docker tag pfee_app-gateway:latest kamelaloui/pfee_app-gateway:latest  
                      
                         '''
                     }
@@ -65,7 +61,6 @@ node{
                             docker push kamelaloui/pfee_app-frontend:latest
                             docker push kamelaloui/pfee_app-auth-service:latest  
                             docker push kamelaloui/pfee_app-site-service:latest  
-                            docker push kamelaloui/pfee_app-gateway:latest
                      
                         '''
                     }
@@ -82,7 +77,6 @@ node{
                 kubectl delete -f mapping-service/mapping-service.yaml || true
                 kubectl delete -f articles-services/articles-service.yaml || true
                 kubectl delete -f media/media-service.yaml || true
-                kubectl delete -f gatway/gateway-service.yaml || true
                 kubectl delete -f front/frontend-service.yaml || true
                 '''
               }}
@@ -99,7 +93,6 @@ node{
                 kubectl apply -f mapping-service/mapping-service.yaml
                 kubectl apply -f articles-services/articles-service.yaml
                 kubectl apply -f media/media-service.yaml
-                kubectl apply -f gatway/gateway-service.yaml
                 kubectl apply -f front/frontend-service.yaml
 '''
                         }
