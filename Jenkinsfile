@@ -89,6 +89,9 @@ node{
                 kubectl delete -f front/frontend-service.yaml
               }
             stage('k8s') {
+                withKubeConfig(credentialsId: 'k8s', serverUrl: 'https://172.31.22.20:6443') {
+
+
                 kubectl apply -f discovery/discovery-service.yaml
                 kubectl apply -f auth-service/auth-service.yaml
                 kubectl apply -f site-patrimonial/site-service.yaml
