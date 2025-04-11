@@ -18,7 +18,7 @@ node{
     dir('mapping-service') {
         sh 'docker build -t pfee_app-mapping-service -f Dockerfile . '
     }
-    dir('gateway') {
+    dir('gatway') {
         sh 'docker build -t pfee_app-gateway -f Dockerfile . '
     }
     dir('articles-services') {
