@@ -54,30 +54,7 @@ node{
                         '''
                     }
          }
-        stage('Push to Nexus') {
-                    withDockerRegistry([credentialsId: "Nexus", url: "http://51.21.219.120:8090/"]) {
-                        sh '''
-
-                            docker tag pfee_app-discovery:latest 51.21.219.120:8090/pfee_app-discovery:latest
-                            docker tag pfee_app-articles-service:latest 51.21.219.120:8090/pfee_app-articles-service:latest
-                            docker tag pfee_app-media-service:latest 51.21.219.120:8090/pfee_app-media-service:latest
-                            docker tag pfee_app-mapping-service:latest 51.21.219.120:8090/pfee_app-mapping-service:latest
-                            docker tag pfee_app-frontend:latest 51.21.219.120:8090/pfee_app-frontend:latest
-                            docker tag pfee_app-auth-service:latest 51.21.219.120:8090/pfee_app-auth-service:latest  
-                            docker tag pfee_app-site-service:latest 51.21.219.120:8090/pfee_app-site-service:latest  
-                            docker tag pfee_app-gateway:latest 51.21.219.120:8090/pfee_app-gateway:latest  
-
-                            docker push 51.21.219.120:8090/pfee_app-discovery:latest
-                            docker push 51.21.219.120:8090/pfee_app-articles-service:latest
-                            docker push 51.21.219.120:8090/pfee_app-media-service:latest
-                            docker push 51.21.219.120:8090/pfee_app-mapping-service:latest
-                            docker push 51.21.219.120:8090/pfee_app-frontend:latest
-                            docker push 51.21.219.120:8090/pfee_app-auth-service:latest  
-                            docker push 51.21.219.120:8090/pfee_app-site-service:latest  
-                            docker push 51.21.219.120:8090/pfee_app-gateway:latest
-                           
-                        '''
-                    }}
+        
               stage('k8s clean') {
                 kubectl delete -f discovery/discovery-service.yaml
                 kubectl delete -f auth-service/auth-service.yaml
@@ -101,7 +78,7 @@ node{
                 kubectl apply -f gatway/gateway-service.yaml
                 kubectl apply -f front/frontend-service.yaml
 
-                
+                }
               }
 
     
