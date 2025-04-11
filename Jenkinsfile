@@ -23,7 +23,7 @@ node{
         sh 'docker rmi -f pfee_app-auth-service || true'
         sh 'docker rmi -f pfee_app-discovery || true'
     }
-      /* stage('Docker up'){
+       stage('Docker up'){
         sh 'docker-compose up -d'
     }
             stage('Tag Docker Images ') {
@@ -81,7 +81,7 @@ node{
                         '''
                     }
             }
-*/
+
         }
     
 
