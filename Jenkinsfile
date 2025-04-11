@@ -85,7 +85,6 @@ node{
                 '''
               }
             stage('k8s') {
-                withKubeConfig(credentialsId: 'k8s', serverUrl: 'https://172.31.22.20:6443') {
                     sh '''
 
 
@@ -98,7 +97,7 @@ node{
                 kubectl apply -f gatway/gateway-service.yaml
                 kubectl apply -f front/frontend-service.yaml
 '''
-                }
+                
               }
 
     
