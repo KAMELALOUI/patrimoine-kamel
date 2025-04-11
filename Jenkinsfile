@@ -41,7 +41,7 @@ node{
                         '''
                     }}
     
-         stage('Push Docker Images to dockerhub') {
+         stage('Dockerhub') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
                     sh '''
                             docker push kamelaloui/pfee_app-discovery:latest
@@ -56,7 +56,7 @@ node{
                         '''
                     }
          }
-        stage('Push Docker Images to Nexus') {
+        stage('Nexus') {
                     withDockerRegistry([credentialsId: "Nexus", url: "http://51.21.219.120:8090/"]) {
                         sh '''
 
