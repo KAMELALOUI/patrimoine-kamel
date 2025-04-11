@@ -33,7 +33,30 @@ spec:
         ports:
         - containerPort: 8087
         env:
+        # Configuration Spring
         - name: SPRING_PROFILES_ACTIVE
           value: "prod"
         - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
           value: "http://discovery-service:8761/eureka"
+        
+        # Configuration MySQL (directe dans le déploiement)
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service:3306/Kamel_db?useSSL=false&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "Secure@1234"
+        - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+          value: "com.mysql.cj.jdbc.Driver"
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+        
+        # Optimisations de connexion
+        - name: SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT
+          value: "30000"
+        - name: SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE
+          value: "5"
+        
+        # Configuration supplémentaire pour la stabilité
+        - name: JAVA_OPTS
+          value: "-Xms256m -Xmx512m"
