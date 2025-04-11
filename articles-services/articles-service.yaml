@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: articles
-        image: your-registry/articles-service:latest
+        image: kamelaloui/pfee_app-frontend:latest
         ports:
         - containerPort: 8084
         env:
