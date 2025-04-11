@@ -1,7 +1,7 @@
 node{
     stage('Clone From Github'){
         
-    git branch: 'deploy_avec_kubernetes', credentialsId: 'Github', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
+    git branch: 'deploy_avec_kubernetes', credentialsId: 'Gitlab', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
     }
     stage('Docker clean'){
              
