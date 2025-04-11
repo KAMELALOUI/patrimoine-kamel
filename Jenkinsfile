@@ -3,7 +3,7 @@ node{
         
     git branch: 'main', credentialsId: 'Gitlab', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
     }
-    stage('install docker avec ansible '){
+    stage('Docker clean'){
         sh 'docker rm -f gateway || true'
         sh 'docker rm -f articles-service || true'
         sh 'docker rm -f site-service || true'
