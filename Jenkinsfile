@@ -1,19 +1,10 @@
 node{
     stage('Clone From Github'){
         
-    git branch: 'main', credentialsId: 'Gitlab', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
+    git branch: 'deploy_avec_kubernetes', credentialsId: 'Github', url: 'git@github.com:KAMELALOUI/patrimoine-kamel.git'
     }
     stage('Docker clean'){
-        sh 'docker rm -f gateway || true'
-        sh 'docker rm -f articles-service || true'
-        sh 'docker rm -f site-service || true'
-        sh 'docker rm -f media-service || true'
-        sh 'docker rm -f mapping-service || true'
-        sh 'docker rm -f frontend || true'
-        sh 'docker rm -f discovery || true'
-        sh 'docker rm -f auth-service || true'
-        
-        
+             
         sh 'docker rmi -f pfee_app-mapping-service || true'
         sh 'docker rmi -f pfee_app-gateway || true'
         sh 'docker rmi -f pfee_app-articles-services || true'
@@ -23,8 +14,15 @@ node{
         sh 'docker rmi -f pfee_app-auth-service || true'
         sh 'docker rmi -f pfee_app-discovery || true'
     }
-       stage('Docker up'){
-        sh 'docker-compose up -d'
+       stage('Docker Images'){
+        sh 'docker build -t pfee_app-mapping-service -f mapping-service/Dockerfile .'
+        sh 'docker build -t pfee_app-gateway -f gatway/Dockerfile .'
+        sh 'docker build -t pfee_app-articles-services -f articles-services/Dockerfile .'
+        sh 'docker build -t pfee_app-site-patrimonial -f site-patrimonial/Dockerfile .'
+        sh 'docker build -t pfee_app-media -f media/Dockerfile .'
+        sh 'docker build -t pfee_app-frontend -f front/Dockerfile .'
+        sh 'docker build -t pfee_app-auth-service -f auth-service/Dockerfile .'
+        sh 'docker build -t pfee_app-discovery -f discovery/Dockerfile .'
     }
             stage('Tag Docker Images ') {
                 withDockerRegistry([credentialsId: "DockerHub", url: ""]) {
@@ -56,7 +54,7 @@ node{
                         '''
                     }
          }
-        stage('Push Docker Images to Nexus') {
+        stage('Push to Nexus') {
                     withDockerRegistry([credentialsId: "Nexus", url: "http://51.21.219.120:8090/"]) {
                         sh '''
 
@@ -79,10 +77,34 @@ node{
                             docker push 51.21.219.120:8090/pfee_app-gateway:latest
                            
                         '''
-                    }
+                    }}
+              stage('k8s clean') {
+                kubectl delete -f discovery/discovery-service.yaml
+                kubectl delete -f auth-service/auth-service.yaml
+                kubectl delete -f site-patrimonial/site-service.yaml
+                kubectl delete -f mapping-service/mapping-service.yaml
+                kubectl delete -f articles-services/articles-service.yaml
+                kubectl delete -f media/media-service.yaml
+                kubectl delete -f gatway/gateway-service.yaml
+                kubectl delete -f front/frontend-service.yaml
+              }
+            stage('k8s') {
+                kubectl apply -f discovery/discovery-service.yaml
+                kubectl apply -f auth-service/auth-service.yaml
+                kubectl apply -f site-patrimonial/site-service.yaml
+                kubectl apply -f mapping-service/mapping-service.yaml
+                kubectl apply -f articles-services/articles-service.yaml
+                kubectl apply -f media/media-service.yaml
+                kubectl apply -f gatway/gateway-service.yaml
+                kubectl apply -f front/frontend-service.yaml
+
+                
+              }
+
+    
             }
 
-        }
+        
     
 
 
