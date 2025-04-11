@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: media-service
+  labels:
+    app: media
+spec:
+  ports:
+  - port: 8086
+    targetPort: 8086
+  selector:
+    app: media
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media-deployment
+  labels:
+    app: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media
+  template:
+    metadata:
+      labels:
+        app: media
+    spec:
+      containers:
+      - name: media
+        image: kamelaloui/pfee_app-media-service:latest
+        ports:
+        - containerPort: 8086
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+          value: "http://discovery-service:8761/eureka"
